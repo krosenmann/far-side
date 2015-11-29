@@ -1,16 +1,46 @@
-#+SHOW_ALL
-#+TITLE Far Side
-#+AUTOR Роман Зайруллин
-
+# -*- coding: utf-8 -*-
+#+STARTUP: showall
+#+TITLE: Far Side
+#+AUTHOR: Роман Зайруллин
+#+EMAIL: krosenmann@gmail.com
+#+descriptions: CRPG on python
+#+language: ru
+#+options: TeX:t LaTeX:t
 * CRPG. Введение
   Этот документ содержит все. И предусматривает все.
   Вдохновленный Shadowrun, Fallout, ADOM и различными TDS, я хочу поместить
   вас в мир, в котором нет магии, зато есть пар и электричество. И,
   может быть, немного клюквы. Ну и нефть еще. И вообще много всяких
-  интересных штук
+  интересных штук.
 ** Инструменты и начальный набор функций.
+   Для игры используются стандартные d10, d4, d6, d12, d20 дайсы.
+#+begin_src python dices.py
+# -*- coding: utf-8 -*-
+import random
 
+def d10:
+ random.seed(100)
+ return random.randint(1, 10)
+
+def d4():
+ random.seed(100)
+ return random.randint(1, 4)
+
+def d6():
+ random.seed(100)
+ return random.randint(1, 6)
+
+def d12():
+ random.seed(100)
+ return random.randint(1, 12)
+
+def d20():
+ random.seed(100)
+ return random.randint(1, 20)
+  
+#+end_src
 * Ролевая система
+** Персонажи
   Проблема выбора ролевой системы в наличии магии у большинства
   РПГ. Я, конечно, поклонник фентези, но в своем проекте использовать
   ее не хочу. На самом деле, это ж уже достаточно приевшаяся тема и
@@ -22,7 +52,7 @@
   - Сила    
   - Ловкость  
   - Интеллект
-  - Внимательность (?)
+  - Восприятие
   - Здоровье
   - Удача
   - Сущность[fn:1]
@@ -38,7 +68,7 @@
     * Взлом
     * Ремонт
     * Изобретательство
-  - Исследованияттт
+  - Исследования
   - Люди
     * Кража
     * Ложь
@@ -48,24 +78,48 @@
     * Хирургия
     * Первая помощь
   Так же, естественно, каждый персонаж имеет имя, пол, вид (человек,
-  собака, дерево) и описание.
+  собака, дерево), уровень (номинальное количество ХР) и описание. 
+** TODO Разработать (утащить) формулы для учета экспы и уровней.
 #+begin_src python game-classes.py
 # -*- coding: utf-8 -*-
+from dices import *
+
 class character:
- def __init__(self, charahter-name, description, sort, sex, states, level, inventory, perks):
- states = { 'strength': 0, 'agility': 0, 'intelegence': 0, 'health': 0, 'luck': 0, 'nature': 0}
- invetory = []
- perks = { 'meele-weapon': 0, 'guns': 0, 'meele': 0, 
+ def __init__(self, characterName, states, perks):
+  self.characterName = ""
+  self.states = { 'strength': 0, 'agility': 0, 'intelegence': 0, 'health': 0, 'luck': 0, 'nature': 0}
+  
+  self.perks = { 'meele-weapon': 0, 'guns': 0, 'meele': 0, 
            'breaking': 0, 'repair': 0, 'investigation': 0, 
            'research': 0, 
            'stealing': 0, 'lie': 0, 'conviction':0, 'tricks':0,
            'surgeons': 0, 'first-aid': 0}
- description = []
- sort = []
-#+end_src
+   self.xp = 0
+   self.lvl = 0
+   self.description = ""
+   self.sort = ""
+   self.inventory = []
 
-* Сеттинг
+ def lvlup(self, xp, lvl):
+#+end_src
+** Создание персонажа
+   Персонаж создается броском d10
+#+begin_src python player.py
+# -*- coding: utf-8 -*-
+from classes import *
+from dices import *
+ def createHero():
+  playerStat = {'strength': d10(), 'agility': d10(), 'intelegence': d10(), 'health': d10(), 'luck': d10(), 'nature': d10()}
+  return playerStat
+ 
+ player = character('None', playerStat, playerPerks)
   
+#+end_src
+** Аффекты
+   Аффекты как таковые не проявляются. Сказывается лишь эффект,
+   изменяющий значения статов и очков перков (для некоторых из них)
+* Сеттинг
+   
 * Сценарий
   
 * Таблицы
