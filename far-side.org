@@ -61,9 +61,9 @@ def d20():
   Помимо основных характеристик, персонажи так же имеют различные навыки
   различные навыки:
   - Оружие, боевые навыки
-    * Холодное
-    * Огнестрельное
-    * Рукопашный бой
+    * Холодное [[~/res/menu/cold-iron.png]]
+    * Огнестрельное [[~/res/menu/range.png]]
+    * Рукопашный бой [[~/res/menu/meele.png]]
   - Техника
     * Взлом
     * Ремонт
@@ -82,7 +82,6 @@ def d20():
 ** TODO Разработать (утащить) формулы для учета экспы и уровней.
 #+begin_src python game-classes.py
 # -*- coding: utf-8 -*-
-from dices import *
 
 class character:
  def __init__(self, characterName, states, perks):
