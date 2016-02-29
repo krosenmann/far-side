@@ -115,12 +115,18 @@ FULLSCREEN_TOGGLE: no
   # -*- coding: utf-8 -*-
 
   class character:
-   def __init__(self, characterName, states, perks):
+   def __init__(self, characterName):
      self.characterName = ""
+     self.description = ""
+
      self.strength = 0
      self.agila = 0
      self.intellegense = 0
-     
+     self.perception = 0
+     self.body = 0
+     self.charisma = 0
+     self.luck = 0
+     self.will = 0
      
      self.perks = { 'meele-weapon': 0, 'guns': 0, 'meele': 0, 
              'breaking': 0, 'repair': 0, 'investigation': 0, 
@@ -128,7 +134,7 @@ FULLSCREEN_TOGGLE: no
              'stealing': 0, 'lie': 0, 'conviction':0, 'tricks':0,
              'surgeons': 0, 'first-aid': 0}
      self.xp = 0
-     self.lvl = 0
+     self.lvl = 1
      self.description = ""
      self.sort = ""
      self.inventory = []
@@ -138,7 +144,7 @@ FULLSCREEN_TOGGLE: no
    
    def death(self):
        itemsDrop(self.inventory)
-       self.description+=epytathy
+       self.description+=log
 #+end_src
 ** Создание персонажа
    Персонаж создается броском d10
@@ -149,7 +155,7 @@ FULLSCREEN_TOGGLE: no
 
   name = 'None'
   def createHero():
-    playerStat = {'strength': d10(), 'agility': d10(), 'intelegence': d10(), 'health': d10(), 'luck': d10(), 'nature': d10()}
+    
     return playerStat
      
    
