@@ -47,28 +47,11 @@ def d20():
    написаны. Хотя, все равно придется что-то выдумать.
 ** Внутренний язык игры.
    Попробуем определить его.
-   Конечно же csv для табличных данных, конфиг формат для конфигов. А
-   вот логику... Думаю, ее можно так же писать на пайтоне. 
-#+begin_src elisp farside-mode.el
-(define-derived-mode farside-mode 
-  prog-mode 
-#+end_src
+   Конечно же csv для табличных данных, конфиг формат для конфигов
+   (ибо из коробки все поддерживется, стандартная библиотека
+   ванлав). Да и логику синей изолентой. Нечего выдумывать. Все что
+   нужно -- имеется. Ура, товарищи. 
 
-#+begin_src python functions.py
-def Setup():
-  """ reading and writing gamesetup from the file 'game.conf'. 
-      game.conf seems like paar 'options: value' """
- 
-  setupFile = open('game.conf', '+')
-  for line in setupFile:
-      Options = dict([line.split(": ")])
-#+end_src
-
-#+begin_src config game.conf
-RESOLUTION: 640x480
-LANGUAGE: russsian
-FULLSCREEN_TOGGLE: no
-#+end_src
 
 
 
