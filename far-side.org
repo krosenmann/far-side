@@ -6,15 +6,37 @@
 #+descriptions: CRPG on python
 #+language: ru
 #+options: TeX:t LaTeX:t
+* License
+  [[http://www.gnu.org/licenses/lgpl-3.0.txt]] 
 * CRPG. Введение
   Этот документ содержит все. И предусматривает все.
   Вдохновленный Shadowrun, Fallout, ADOM и различными TDS, я хочу поместить
   вас в мир, в котором нет магии, зато есть пар и электричество. И,
   может быть, немного клюквы. Ну и нефть еще. И вообще много всяких
   интересных штук.
+** Дисплей и настройки
+По умолчанию дисплей имеет разрешение 640х480, это значение
+захардкожено, как способное сработать наверняка.
+   #+begin_src python :tangle display.py
+     import pygame
+     from pygame.locals import *
+     from OpenGL.GL import *
+     from OpenGL.GLU import *
+
+     import surface
+
+     class Display:
+         def __init__(self):
+             pygame.init()
+             pygame.display.set_caption("Far Prototype")
+             self.set_display((640, 480))
+   #+end_src
+** TODO Дисплей
+   Добавить чтение конфигов
+
 ** Инструменты и начальный набор функций.
    Для игры используются стандартные d10, d4, d6, d12, d20 дайсы.
-#+begin_src python functions.py
+#+begin_src python :tangle functions.py
 # -*- coding: utf-8 -*-
 import random
 
@@ -97,10 +119,10 @@ def d20():
   Так же, естественно, каждый персонаж имеет имя, пол, вид (человек,
   собака, дерево), уровень (номинальное количество ХР) и описание. 
 ** TODO Разработать (утащить) формулы для учета экспы и уровней.
-#+begin_src python game-classes.py
+#+begin_src python :tangle game-classes.py
   # -*- coding: utf-8 -*-
 
-  class character:
+  class Сharacter:
    def __init__(self, characterName):
      self.characterName = ""
      self.description = ""
@@ -134,7 +156,7 @@ def d20():
 #+end_src
 ** Создание персонажа
    Персонаж создается броском d10
-#+begin_src python player.py
+#+begin_src python :tangle player.py
   # -*- coding: utf-8 -*-
   from game-classes import *
   from functions import *
@@ -145,7 +167,7 @@ def d20():
     return playerStat
      
    
-  player = character(name, playerStat, playerPerks)
+  player = Сharacter(name, playerStat, playerPerks)
     
 #+end_src
 ** Аффекты
@@ -153,7 +175,7 @@ def d20():
 * Сценарии
 
 
-#+begin_src python main.py
+#+begin_src python :tangle main.py
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
@@ -207,7 +229,7 @@ import numpy as np
   Так как мастер каждую новую игру начинает с нуля, соответственно,
   названия местностей меняются каждое прохождение, хотя, вероятность
   совпрадения, определенно, присутствует.
-#+begin_src python map.py
+#+begin_src python :tangle map.py
   import random
 
   typeMap = ['big_sity', 'medium_city', 'small_city', 'village']
