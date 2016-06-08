@@ -7,7 +7,9 @@
 #+language: ru
 #+options: TeX:t LaTeX:t
 * License
-  [[http://www.gnu.org/licenses/lgpl-3.0.txt]] 
+  Оригинал
+  [[./LICENSE]]
+  
 * CRPG. Введение
   Этот документ содержит все. И предусматривает все.
   Вдохновленный Shadowrun, Fallout, ADOM и различными TDS, я хочу поместить
