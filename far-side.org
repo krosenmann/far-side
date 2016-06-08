@@ -17,24 +17,47 @@
   может быть, немного клюквы. Ну и нефть еще. И вообще много всяких
   интересных штук.
 ** Дисплей и настройки
-По умолчанию дисплей имеет разрешение 640х480, это значение
-захардкожено, как способное сработать наверняка.
+   По умолчанию дисплей имеет разрешение 640х480, это значение
+   захардкожено, как способное сработать наверняка.
    #+begin_src python :tangle display.py
      import pygame
-     from pygame.locals import *
-     from OpenGL.GL import *
-     from OpenGL.GLU import *
+     #from pygame.locals import *
+     #from OpenGL.GL import *
+     #from OpenGL.GLU import *
+     from ConfigParser import SafeConfigParser
 
-     import surface
+     parser = SafeConfigParser()
+     try:
+         parser.read('gameconfig.cfg')
+         resolution = parser.get('display','resolution')
+     except:
+         print TypeError
+         resolution = (640, 480)
+     #import surface
 
      class Display:
          def __init__(self):
              pygame.init()
              pygame.display.set_caption("Far Prototype")
-             self.set_display((640, 480))
+             self.set_display(resolution)
+   #+end_src
+   Конфигурирование:
+   #+begin_src conf :tuple gameconfig.cfg
+     [display]
+             resolution = 640, 480
+             color = 32
+             fullscreen = False
+             
    #+end_src
 ** TODO Дисплей
    Добавить чтение конфигов
+   #+begin_src python
+     # -*- coding: utf8 -*-
+     from ConfigParser import SafeConfigParser
+
+
+         
+   #+end_src
 
 ** Инструменты и начальный набор функций.
    Для игры используются стандартные d10, d4, d6, d12, d20 дайсы.
