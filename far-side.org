@@ -21,6 +21,7 @@
    захардкожено, как способное сработать наверняка.
    #+begin_src python :tangle display.py
      import pygame
+     import configurations
      #from pygame.locals import *
      #from OpenGL.GL import *
      #from OpenGL.GLU import *
@@ -35,12 +36,13 @@
    Конфигурирование:
    #+begin_src conf :tuple gameconfig.cfg
      [display]
-             resolution = 640, 480
+             resolution = (640, 480)
              color = 32
              fullscreen = False
-             
+     [game]
+             language = english
    #+end_src
-** TODO Дисплей
+** DONE Дисплей
    Добавить чтение конфигов
    #+begin_src python configurations.py
      # -*- coding: utf8 -*-
@@ -53,6 +55,7 @@
          language = parser.get('game', 'language')
      except
          print TypeError
+         #default settings
          resolution = (640, 480)
          language = 'english'
          
@@ -146,35 +149,20 @@
 #+begin_src python :tangle game-classes.py
   # -*- coding: utf-8 -*-
 
-  class Сharacter:
-   def __init__(self, characterName):
-     self.characterName = ""
-     self.description = ""
-
-     self.strength = 0
-     self.agila = 0
-     self.intellegense = 0
-     self.perception = 0
-     self.body = 0
-     self.charisma = 0
-     self.luck = 0
-     self.will = 0
-     
-     self.perks = { 'meele-weapon': 0, 'guns': 0, 'meele': 0, 
-             'breaking': 0, 'repair': 0, 'investigation': 0, 
-             'research': 0, 
-             'stealing': 0, 'lie': 0, 'conviction':0, 'tricks':0,
-             'surgeons': 0, 'first-aid': 0}
-     self.xp = 0
-     self.lvl = 1
-     self.description = ""
-     self.sort = ""
-     self.inventory = []
-     self.log = ""
-
-   def lvlup(self, xp, lvl):
-   
-   def death(self):
+  class Character:
+    """Basic class for creating PC and NPC"""
+    def __init__(self):
+      """initialisation of character"""
+      self.stats = {}
+      self.perks = {}
+      self.inventory = {} #maybe, i'm not sure
+      self.description = ''
+    def creation(self):
+      """function for generating character"""
+      for stat in self.stats.keys():
+        self.stats[stat] = d10()
+    def death(self):
+      """death"""
        itemsDrop(self.inventory)
        self.description+=log
 #+end_src
@@ -185,14 +173,7 @@
   from game-classes import *
   from functions import *
 
-  name = 'None'
-  def createHero():
-    
-    return playerStat
-     
-   
-  player = Сharacter(name, playerStat, playerPerks)
-    
+  player = Сharacter(name, playerStat, playerPerks) 
 #+end_src
 ** Аффекты
   
@@ -253,8 +234,26 @@ import numpy as np
   Так как мастер каждую новую игру начинает с нуля, соответственно,
   названия местностей меняются каждое прохождение, хотя, вероятность
   совпрадения, определенно, присутствует.
+  Город начинается с определения его значимости  (в инфраструктуре, но
+  не сюжете), отсюда вытекает его размер, предприятия и, как
+  следствие, набор и количество квестов. 
 #+begin_src python :tangle map.py
+  # -*- coding: utf-8 -*-
   import random
+
+  class City:
+      """Basic class for City and Vilages"""
+      def __init__(self):
+          """initialisation"""
+          self.status = ''
+
+      def generation(self, status, quests):
+          """Generation local map"""
+          pass
+          
+                
+          
+      
 
   typeMap = ['big_sity', 'medium_city', 'small_city', 'village']
   labelsFile = open('labels.fst', 'r')
