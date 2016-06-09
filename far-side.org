@@ -24,15 +24,6 @@
      #from pygame.locals import *
      #from OpenGL.GL import *
      #from OpenGL.GLU import *
-     from ConfigParser import SafeConfigParser
-
-     parser = SafeConfigParser()
-     try:
-         parser.read('gameconfig.cfg')
-         resolution = parser.get('display','resolution')
-     except:
-         print TypeError
-         resolution = (640, 480)
      #import surface
 
      class Display:
@@ -51,39 +42,47 @@
    #+end_src
 ** TODO Дисплей
    Добавить чтение конфигов
-   #+begin_src python
+   #+begin_src python configurations.py
      # -*- coding: utf8 -*-
      from ConfigParser import SafeConfigParser
 
-
+     parser = SafeConfigParser()
+     try:
+         parser.read('gameconfig.cfg')
+         resolution = parser.get('display','resolution') #привести типы у разрешения
+         language = parser.get('game', 'language')
+     except
+         print TypeError
+         resolution = (640, 480)
+         language = 'english'
          
    #+end_src
 
 ** Инструменты и начальный набор функций.
    Для игры используются стандартные d10, d4, d6, d12, d20 дайсы.
 #+begin_src python :tangle functions.py
-# -*- coding: utf-8 -*-
-import random
+  # -*- coding: utf-8 -*-
+  import random
 
-def d10():
- random.seed(100)
- return random.randint(1, 10)
+  def d10():
+   random.seed(100)
+   return random.randint(1, 10)
 
-def d4():
- random.seed(100)
- return random.randint(1, 4)
+  def d4():
+   random.seed(100)
+   return random.randint(1, 4)
 
-def d6():
- random.seed(100)
- return random.randint(1, 6)
+  def d6():
+   random.seed(100)
+   return random.randint(1, 6)
 
-def d12():
- random.seed(100)
- return random.randint(1, 12)
+  def d12():
+   random.seed(100)
+   return random.randint(1, 12)
 
-def d20():
- random.seed(100)
- return random.randint(1, 20)
+  def d20():
+   random.seed(100)
+   return random.randint(1, 20)
 #+end_src
    Все настройки хранятся в файле "game.conf", а сами объекты должны
    создаваться из файлов с описаниями этих самых объектов. Это позволит
