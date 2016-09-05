@@ -40,14 +40,14 @@ def draw_scene():
 
 
 def exit_game(key):
-    if key == GLUT_KEY_UP:  # Press W to Exit
+    if key == GLUT_KEY_UP:  # Press Delete to Exit
         glutDestroyWindow(window)
         sys.exit()
 
 
 def main():
     global window
-    glutInit('')
+    glutInit("")
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH)
     glutInitWindowSize(int(config.get("VIDEO", "Width")), int(config.get("VIDEO", "Height")))
     glutInitWindowPosition(int(config.get("VIDEO", "WindowPositionX")), int(config.get("VIDEO", "WindowPositionY")))
