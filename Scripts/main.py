@@ -5,13 +5,12 @@ import sys
 import configparser
 from pyglet.gl import *
 
-# Read game.cfg
 config = configparser.RawConfigParser()
 config.read("game.cfg")
 window = int(config.get("VIDEO", "Window"))
 
 
-def init(Width, Height):
+def init():
     glClearColor(0.0, 0.0, 0.0, 0.5)
     glClearDepth(1.0)
     glDepthFunc(GL_LESS)
@@ -25,7 +24,7 @@ def init(Width, Height):
 
 def resize_window(width, height):
     if height == 0:
-       height = 1
+        height = 1
 
     glViewport(0, 0, width, height)
     glMatrixMode(GL_PROJECTION)
@@ -59,13 +58,13 @@ def draw_scene():
                 numVerts += 1
     return vertsOut, normsOut'''
 
-    glBegin(GL_POLYGON)  # Start drawing a polygon
-    glVertex3f(0.0, 1.0, 0.0)  # Top
-    glVertex3f(1.0, -1.0, 0.0)  # Bottom Right
-    glVertex3f(-1.0, -1.0, 0.0)  # Bottom Left
+    # Раскомментить для проверки что хоть что-то рисуется
+    glBegin(GL_POLYGON)
+    glVertex3f(0.0, 1.0, 0.0)
+    glVertex3f(1.0, -1.0, 0.0)
+    glVertex3f(-1.0, -1.0, 0.0)
     glEnd()
 
-    glTranslatef(3.0, 0.0, 0.0)
     glutSwapBuffers()
     glutPostRedisplay()
 
@@ -89,7 +88,7 @@ def main():
     # else:
     #    print("WindowedMode")
     glutIdleFunc(draw_scene)
-    #glutReshapeFunc(resize_window) - не работает правильно.
+    # glutReshapeFunc(resize_window) - не работает правильно.
     glutKeyboardFunc(exit_game)
     glutMainLoop()
 
