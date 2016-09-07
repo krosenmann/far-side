@@ -3,6 +3,7 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import sys
 import configparser
+from pyglet.gl import *
 
 # Read game.cfg
 config = configparser.RawConfigParser()
@@ -10,7 +11,7 @@ config.read("game.cfg")
 window = int(config.get("VIDEO", "Window"))
 
 
-def init(width, height):
+def init(Width, Height):
     glClearColor(0.0, 0.0, 0.0, 0.5)
     glClearDepth(1.0)
     glDepthFunc(GL_LESS)
@@ -24,43 +25,72 @@ def init(width, height):
 
 def resize_window(width, height):
     if height == 0:
-        height = 1
+       height = 1
 
     glViewport(0, 0, width, height)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    gluPerspective(45.0, float(width) / float(height), 0.1, 100.0)
+    gluPerspective(45.0, float(config.get("VIDEO", "Width")) / float(config.get("VIDEO", "Height")), 0.1, 100.0)
     glMatrixMode(GL_MODELVIEW)
 
 
 def draw_scene():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
+    '''numVerts = 0
+    verts = []
+    norms = []
+    vertsOut = []
+    normsOut = []
+    for line in open("C:\\Users\\й\\Desktop\\Prjct\\far-side\\res\\models\\cube.obj", "r"):
+        vals = line.split()
+        if vals[0] == "v":
+            v = map(float, vals[1:4])
+            verts.append(v)
+        if vals[0] == "vn":
+            n = map(float, vals[1:4])
+            norms.append(n)
+        if vals[0] == "f":
+            for f in vals[1:]:
+                w = f.split("/")
+                # OBJ Files are 1-indexed so we must subtract 1 below
+                vertsOut.append(list(verts[int(w[0]) - 1]))
+                normsOut.append(list(norms[int(w[2]) - 1]))
+                numVerts += 1
+    return vertsOut, normsOut'''
+
+    glBegin(GL_POLYGON)  # Start drawing a polygon
+    glVertex3f(0.0, 1.0, 0.0)  # Top
+    glVertex3f(1.0, -1.0, 0.0)  # Bottom Right
+    glVertex3f(-1.0, -1.0, 0.0)  # Bottom Left
+    glEnd()
+
+    glTranslatef(3.0, 0.0, 0.0)
     glutSwapBuffers()
+    glutPostRedisplay()
 
 
 def exit_game(key):
-    if key == GLUT_KEY_UP:  # Press Delete to Exit
+    if key == GLUT_KEY_UP:  # - завершение с ошибкой, что не есть правильно.
         glutDestroyWindow(window)
         sys.exit()
 
 
 def main():
     global window
-    glutInit("")
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH)
+    glutInit(sys.argv)
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
     glutInitWindowSize(int(config.get("VIDEO", "Width")), int(config.get("VIDEO", "Height")))
     glutInitWindowPosition(int(config.get("VIDEO", "WindowPositionX")), int(config.get("VIDEO", "WindowPositionY")))
     window = glutCreateWindow(b"FAR SIDE")
     glutDisplayFunc(draw_scene)
-    # if bool(config.get("VIDEO", "WindowedMode")):
+    # if bool(config.get("VIDEO", "WindowedMode")): - пока не сделал парсинг значения из конфига - фуллскрин или нет.
     #    glutFullScreen()
     # else:
     #    print("WindowedMode")
     glutIdleFunc(draw_scene)
-    glutReshapeFunc(resize_window)
+    #glutReshapeFunc(resize_window) - не работает правильно.
     glutKeyboardFunc(exit_game)
-    init(int(config.get("VIDEO", "Width")), int(config.get("VIDEO", "Height")))
     glutMainLoop()
 
 
