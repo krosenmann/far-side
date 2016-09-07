@@ -1,7 +1,20 @@
-
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-class Сharacter:
+class PhysicalObject:
+ """Base class for all physical jbjacts in the game"""
+ def __init__(self):
+  """Characteristic and creating object"""
+  self.speed = 0
+  self.moving_direction = (0,0)
+  self.mass = 0
+  self.fragility = 0
+
+ 
+  
+ 
+
+class Сharacter(PhysicalObject):
  def __init__(self, characterName):
    self.characterName = ""
    self.description = ""
