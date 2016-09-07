@@ -36,34 +36,14 @@ def resize_window(width, height):
 def draw_scene():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
-    '''numVerts = 0
-    verts = []
-    norms = []
-    vertsOut = []
-    normsOut = []
-    for line in open("C:\\Users\\й\\Desktop\\Prjct\\far-side\\res\\models\\cube.obj", "r"):
-        vals = line.split()
-        if vals[0] == "v":
-            v = map(float, vals[1:4])
-            verts.append(v)
-        if vals[0] == "vn":
-            n = map(float, vals[1:4])
-            norms.append(n)
-        if vals[0] == "f":
-            for f in vals[1:]:
-                w = f.split("/")
-                # OBJ Files are 1-indexed so we must subtract 1 below
-                vertsOut.append(list(verts[int(w[0]) - 1]))
-                normsOut.append(list(norms[int(w[2]) - 1]))
-                numVerts += 1
-    return vertsOut, normsOut'''
 
-    # Раскомментить для проверки что хоть что-то рисуется
+    '''Раскомментить для проверки что хоть что-то рисуется
     glBegin(GL_POLYGON)
     glVertex3f(0.0, 1.0, 0.0)
     glVertex3f(1.0, -1.0, 0.0)
     glVertex3f(-1.0, -1.0, 0.0)
     glEnd()
+    '''
 
     glutSwapBuffers()
     glutPostRedisplay()
