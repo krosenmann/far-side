@@ -42,24 +42,6 @@
      [game]
              language = english
    #+end_src
-** DONE Дисплей
-   Добавить чтение конфигов
-   #+begin_src python configurations.py
-     # -*- coding: utf8 -*-
-     from ConfigParser import SafeConfigParser
-
-     parser = SafeConfigParser()
-     try:
-         parser.read('gameconfig.cfg')
-         resolution = parser.get('display','resolution') #привести типы у разрешения
-         language = parser.get('game', 'language')
-     except
-         print TypeError
-         #default settings
-         resolution = (640, 480)
-         language = 'english'
-         
-   #+end_src
 
 ** Инструменты и начальный набор функций.
    Для игры используются стандартные d10, d4, d6, d12, d20 дайсы.
@@ -100,8 +82,32 @@
    ванлав). Да и логику синей изолентой. Нечего выдумывать. Все что
    нужно -- имеется. Ура, товарищи. 
 
+* TODO
+** TODO Дисплей
+    Добавить чтение конфигов
+    #+begin_src python configurations.py
+      # -*- coding: utf8 -*-
+      from ConfigParser import SafeConfigParser
+
+      parser = SafeConfigParser()
+      try:
+          parser.read('gameconfig.cfg')
+          resolution = parser.get('display','resolution') #привести типы у разрешения
+          language = parser.get('game', 'language')
+      except
+          print TypeError
+          #default settings
+          resolution = (640, 480)
+          language = 'english'
+          
+    #+end_src
+** TODO Утилиты
+   - [ ] Загрузчик моделей
+   - [ ] Загрузчик текстур
+   - [ ] Конфиг ридер
 
 
+    
 
 * Ролевая система
 ** Характеристики
