@@ -5,32 +5,26 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import sys
-<<<<<<< HEAD
-from ConfigParser import SafeConfigParser
-=======
 import configparser
-from pyglet.gl import *
->>>>>>> cba3131756d48e4be8208af4df264435b19e807f
 
 config = configparser.RawConfigParser()
 config.read("game.cfg")
-<<<<<<< HEAD
 
-class Display:
-    """Main screen of application"""
-    
-    window = int(config.get("VIDEO", "Window"))
-    def init(width, height):
-        glClearColor(0.0, 0.0, 0.0, 0.5)
-        glClearDepth(1.0)
-        glDepthFunc(GL_LESS)
-        glEnable(GL_DEPTH_TEST)
-        glShadeModel(GL_SMOOTH)
-        glMatrixMode(GL_PROJECTION)
-        glLoadIdentity()
-        gluPerspective(45.0, float(config.get("VIDEO", "Width")) / float(config.get("VIDEO", "Height")), 0.1, 100.0)
-        glMatrixMode(GL_MODELVIEW)
-=======
+window = int(config.get("VIDEO", "Window"))
+
+
+def init(width, height):
+    glClearColor(0.0, 0.0, 0.0, 0.5)
+    glClearDepth(1.0)
+    glDepthFunc(GL_LESS)
+    glEnable(GL_DEPTH_TEST)
+    glShadeModel(GL_SMOOTH)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(45.0, float(config.get("VIDEO", "Width")) / float(config.get("VIDEO", "Height")), 0.1, 100.0)
+    glMatrixMode(GL_MODELVIEW)
+
+
 window = int(config.get("VIDEO", "Window"))
 
 
@@ -55,40 +49,41 @@ def resize_window(width, height):
     glLoadIdentity()
     gluPerspective(45.0, float(config.get("VIDEO", "Width")) / float(config.get("VIDEO", "Height")), 0.1, 100.0)
     glMatrixMode(GL_MODELVIEW)
->>>>>>> cba3131756d48e4be8208af4df264435b19e807f
-
-    def resize_window(width, height):
-        if height == 0:
-            height = 1            
-        glViewport(0, 0, width, height)
-        glMatrixMode(GL_PROJECTION)
-        glLoadIdentity()
-        gluPerspective(45.0, float(width) / float(height), 0.1, 100.0)
-        glMatrixMode(GL_MODELVIEW)
-
-<<<<<<< HEAD
-    def draw_scene():
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-        glLoadIdentity()
-        glutSwapBuffers()
 
 
-    def exit_game(key):
-        if key == GLUT_KEY_UP:  # Press Delete to Exit
-            glutDestroyWindow(window)
-            sys.exit()
-=======
+def resize_window(width, height):
+    if height == 0:
+        height = 1
+    glViewport(0, 0, width, height)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(45.0, float(width) / float(height), 0.1, 100.0)
+    glMatrixMode(GL_MODELVIEW)
+
+
+def draw_scene():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+    glutSwapBuffers()
+
+
+def exit_game(key):
+    if key == GLUT_KEY_UP:  # Press Delete to Exit
+        glutDestroyWindow(window)
+        sys.exit()
+
+
 def draw_scene():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
 
-    '''Раскомментить для проверки что хоть что-то рисуется
+    #Раскомментить для проверки что хоть что-то рисуется
     glBegin(GL_POLYGON)
     glVertex3f(0.0, 1.0, 0.0)
     glVertex3f(1.0, -1.0, 0.0)
     glVertex3f(-1.0, -1.0, 0.0)
     glEnd()
-    '''
+
 
     glutSwapBuffers()
     glutPostRedisplay()
@@ -98,7 +93,6 @@ def exit_game(key):
     if key == GLUT_KEY_UP:  # - завершение с ошибкой, что не есть правильно.
         glutDestroyWindow(window)
         sys.exit()
->>>>>>> cba3131756d48e4be8208af4df264435b19e807f
 
 
 def main():
