@@ -1,48 +1,50 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import sys
-import configparser
+from ConfigParser import SafeConfigParser
 
 # Read game.cfg
 config = configparser.RawConfigParser()
 config.read("game.cfg")
-window = int(config.get("VIDEO", "Window"))
+
+class Display:
+    """Main screen of application"""
+    
+    window = int(config.get("VIDEO", "Window"))
+    def init(width, height):
+        glClearColor(0.0, 0.0, 0.0, 0.5)
+        glClearDepth(1.0)
+        glDepthFunc(GL_LESS)
+        glEnable(GL_DEPTH_TEST)
+        glShadeModel(GL_SMOOTH)
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        gluPerspective(45.0, float(config.get("VIDEO", "Width")) / float(config.get("VIDEO", "Height")), 0.1, 100.0)
+        glMatrixMode(GL_MODELVIEW)
+
+    def resize_window(width, height):
+        if height == 0:
+            height = 1            
+        glViewport(0, 0, width, height)
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        gluPerspective(45.0, float(width) / float(height), 0.1, 100.0)
+        glMatrixMode(GL_MODELVIEW)
+
+    def draw_scene():
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        glLoadIdentity()
+        glutSwapBuffers()
 
 
-def init(width, height):
-    glClearColor(0.0, 0.0, 0.0, 0.5)
-    glClearDepth(1.0)
-    glDepthFunc(GL_LESS)
-    glEnable(GL_DEPTH_TEST)
-    glShadeModel(GL_SMOOTH)
-    glMatrixMode(GL_PROJECTION)
-    glLoadIdentity()
-    gluPerspective(45.0, float(config.get("VIDEO", "Width")) / float(config.get("VIDEO", "Height")), 0.1, 100.0)
-    glMatrixMode(GL_MODELVIEW)
-
-
-def resize_window(width, height):
-    if height == 0:
-        height = 1
-
-    glViewport(0, 0, width, height)
-    glMatrixMode(GL_PROJECTION)
-    glLoadIdentity()
-    gluPerspective(45.0, float(width) / float(height), 0.1, 100.0)
-    glMatrixMode(GL_MODELVIEW)
-
-
-def draw_scene():
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    glLoadIdentity()
-    glutSwapBuffers()
-
-
-def exit_game(key):
-    if key == GLUT_KEY_UP:  # Press Delete to Exit
-        glutDestroyWindow(window)
-        sys.exit()
+    def exit_game(key):
+        if key == GLUT_KEY_UP:  # Press Delete to Exit
+            glutDestroyWindow(window)
+            sys.exit()
 
 
 def main():
