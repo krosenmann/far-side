@@ -38,7 +38,7 @@
    просмотру ролик из пункта 1.1 Листа вдохновения. Это история о последнем приключении Тандема
    Спуни, которое как раз произошло в Стране чудес.
 
-
+   
 ** Дисплей и настройки						  :Technical:
    По умолчанию дисплей имеет разрешение 640х480, это значение
    захардкожено, как способное сработать наверняка.
@@ -104,36 +104,6 @@
    (ибо из коробки все поддерживется, стандартная библиотека
    ванлав). Да и логику синей изолентой. Нечего выдумывать. Все что
    нужно -- имеется. Ура, товарищи. 
-
-* TODO								 :TODOExport:
-
-** DONE Дисплей							  :Technical:
-   CLOSED: [2016-09-12 Пн 15:46]
-    Добавить чтение конфигов
-    #+begin_src python configurations.py
-      # -*- coding: utf8 -*-
-      from ConfigParser import SafeConfigParser
-
-      parser = SafeConfigParser()
-      try:
-	  parser.read('gameconfig.cfg')
-	  resolution = parser.get('display','resolution') #привести типы у разрешения
-	  language = parser.get('game', 'language')
-      except
-	  print TypeError
-	  #default settings
-	  resolution = (640, 480)
-	  language = 'english'
-	  
-    #+end_src
-** TODO Утилиты							  :Technical:
-   - [ ] Загрузчик моделей
-   - [ ] Загрузчик текстур
-   - [ ] Конфиг ридер
-** TODO Реализация(прототип) "Мастера"
-   Мастера должен быть тестируем отдельно от всего на свете. Логичен,
-   но с сюрпризами. Материалы по работе и логике мастера я буду
-   размещать здесь же. (возможны дубли)
 
 
 * Ролевая система						     :Design:
@@ -286,6 +256,37 @@
    предзаписанного звука. Это позволит использовать разнообразное
    окружение, гибкое и интересное. И при этом игра не будет много
    весить.
+
+* TODO								 :TODOExport:
+
+** DONE Дисплей							  :Technical:
+   CLOSED: [2016-09-12 Пн 15:46]
+    Добавить чтение конфигов
+    #+begin_src python configurations.py
+      # -*- coding: utf8 -*-
+      from ConfigParser import SafeConfigParser
+
+      parser = SafeConfigParser()
+      try:
+	  parser.read('gameconfig.cfg')
+	  resolution = parser.get('display','resolution') #привести типы у разрешения
+	  language = parser.get('game', 'language')
+      except
+	  print TypeError
+	  #default settings
+	  resolution = (640, 480)
+	  language = 'english'
+	  
+    #+end_src
+** TODO Утилиты							  :Technical:
+   - [ ] Загрузчик моделей
+   - [ ] Загрузчик текстур
+   - [ ] Конфиг ридер
+** TODO Реализация(прототип) "Мастера"
+   Мастера должен быть тестируем отдельно от всего на свете. Логичен,
+   но с сюрпризами. Материалы по работе и логике мастера я буду
+   размещать здесь же. (возможны дубли)
+
 
 * Footnotes
 
