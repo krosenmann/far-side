@@ -230,30 +230,7 @@
   Город начинается с определения его значимости  (в инфраструктуре, но
   не сюжете), отсюда вытекает его размер, предприятия и, как
   следствие, набор и количество квестов. 
-#+begin_src python :tangle map.py
-  # -*- coding: utf-8 -*-
-  import random
 
-  class City:
-      """Basic class for City and Vilages"""
-      def __init__(self):
-          """initialisation"""
-          self.status = ''
-
-      def generation(self, status, quests):
-          """Generation local map"""
-          pass
-          
-                
-          
-      
-
-  typeMap = ['big_sity', 'medium_city', 'small_city', 'village']
-  labelsFile = open('labels.fst', 'r')
-  labelsTowns = labelsFile.read()
-
-
-#+end_src
 
   
 * Звук								  :Technical:
