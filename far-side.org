@@ -8,6 +8,7 @@
 #+options: TeX:t LaTeX:t
 #+TAGS: Technical Design
 #+TODO: TODO(t) IN_PROGRESS(p) | FEEDBACK(f) DONE(d)
+
 * License
   Оригинал
   [[./LICENSE]]
@@ -18,6 +19,64 @@
   вас в мир, в котором нет магии, зато есть пар и электричество. И,
   может быть, немного клюквы. Ну и нефть еще. И вообще много всяких
   интересных штук.
+* TODO								 :TODOExport:
+
+** DONE Дисплей							  :Technical:
+   CLOSED: [2016-09-12 Пн 15:46]
+    Добавить чтение конфигов
+    #+begin_src python configurations.py
+      # -*- coding: utf8 -*-
+      from ConfigParser import SafeConfigParser
+
+      parser = SafeConfigParser()
+      try:
+	  parser.read('gameconfig.cfg')
+	  resolution = parser.get('display','resolution') #привести типы у разрешения
+	  language = parser.get('game', 'language')
+      except
+	  print TypeError
+	  #default settings
+	  resolution = (640, 480)
+	  language = 'english'
+	  
+    #+end_src
+** IN_PROGRESS Утилиты						  :Technical:
+   - [ ] Загрузчик моделей
+   - [ ] Загрузчик текстур
+   - [ ] Конфиг ридер
+** TODO Реализация(прототип) "Мастера"				  :Technical:
+   Мастера должен быть тестируем отдельно от всего на свете. Логичен,
+   но с сюрпризами. Материалы по работе и логике мастера я буду
+   размещать здесь же. (возможны дубли)
+   Заняться этим после интерпретатора команд
+
+** IN_PROGRESS Интерпретатор команд				  :Technical:
+   Как говорилось в пункте про управление, все в игре происходит
+   посредством команд, клавиатура, иконки, геймпад -- всего лишь
+   интерфейс для них. Поехали!
+** TODO Разработать (утащить) формулы для учета экспы и уровней.
+#+begin_src python :tangle game-classes.py
+  # -*- coding: utf-8 -*-
+
+  class Character:
+    """Basic class for creating PC and NPC"""
+    def __init__(self):
+      """initialisation of character"""
+      self.stats = {}
+      self.perks = {}
+      self.inventory = {} #maybe, i'm not sure
+      self.description = ''
+    def creation(self):
+      """function for generating character"""
+      for stat in self.stats.keys():
+        self.stats[stat] = d10()
+    def death(self):
+      """death"""
+       itemsDrop(self.inventory)
+       self.description+=log
+#+end_src
+
+* Оффтопы и замечания
 
 ** Лист вдохновения						     :Design:
    1. Интересные и хардкорные приключения, созданные ранее, и
@@ -199,63 +258,6 @@
    окружение, гибкое и интересное. И при этом игра не будет много
    весить.
    Реализуется звук в виде библиотек, написанных на FAUST
-
-* TODO								 :TODOExport:
-
-** DONE Дисплей							  :Technical:
-   CLOSED: [2016-09-12 Пн 15:46]
-    Добавить чтение конфигов
-    #+begin_src python configurations.py
-      # -*- coding: utf8 -*-
-      from ConfigParser import SafeConfigParser
-
-      parser = SafeConfigParser()
-      try:
-	  parser.read('gameconfig.cfg')
-	  resolution = parser.get('display','resolution') #привести типы у разрешения
-	  language = parser.get('game', 'language')
-      except
-	  print TypeError
-	  #default settings
-	  resolution = (640, 480)
-	  language = 'english'
-	  
-    #+end_src
-** IN_PROGRESS Утилиты						  :Technical:
-   - [ ] Загрузчик моделей
-   - [ ] Загрузчик текстур
-   - [ ] Конфиг ридер
-** TODO Реализация(прототип) "Мастера"				  :Technical:
-   Мастера должен быть тестируем отдельно от всего на свете. Логичен,
-   но с сюрпризами. Материалы по работе и логике мастера я буду
-   размещать здесь же. (возможны дубли)
-   Заняться этим после интерпретатора команд
-
-** IN_PROGRESS Интерпретатор команд				  :Technical:
-   Как говорилось в пункте про управление, все в игре происходит
-   посредством команд, клавиатура, иконки, геймпад -- всего лишь
-   интерфейс для них. Поехали!
-** TODO Разработать (утащить) формулы для учета экспы и уровней.
-#+begin_src python :tangle game-classes.py
-  # -*- coding: utf-8 -*-
-
-  class Character:
-    """Basic class for creating PC and NPC"""
-    def __init__(self):
-      """initialisation of character"""
-      self.stats = {}
-      self.perks = {}
-      self.inventory = {} #maybe, i'm not sure
-      self.description = ''
-    def creation(self):
-      """function for generating character"""
-      for stat in self.stats.keys():
-        self.stats[stat] = d10()
-    def death(self):
-      """death"""
-       itemsDrop(self.inventory)
-       self.description+=log
-#+end_src
 
 * Footnotes
 
