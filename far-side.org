@@ -6,7 +6,7 @@
 #+descriptions: CRPG on python
 #+language: ru
 #+options: TeX:t LaTeX:t
-#+TAGS: Technical(tech) Design(des)
+#+TAGS: Technical Design
 #+TODO: TODO(t) IN_PROGRESS(p) | FEEDBACK(f) DONE(d)
 * License
   Оригинал
@@ -22,9 +22,9 @@
 ** Лист вдохновения						     :Design:
    1. Интересные и хардкорные приключения, созданные ранее, и
       интересные истории.
-      1. Последнее приключения Тандема Спуни    [[https://www.youtube.com/watch?v=D8XsooIgNMQ&index=8&list=PL7UGawndkywQi-Or6ChMgfltmmr2hh2oN]]
-      2. DungeonLand
-      3.
+      1) Последнее приключения Тандема Спуни    [[https://www.youtube.com/watch?v=D8XsooIgNMQ&index=8&list=PL7UGawndkywQi-Or6ChMgfltmmr2hh2oN]]
+      2) DungeonLand
+      3) 
 ** Замечания об управлении					  :Technical:
    Все действия, которые буду производиться в игре не привязаны
    напрямую к клавишам. Более того, там вообще должно отсутствовать
@@ -39,30 +39,6 @@
    игрового процесса.   
 ** Инструменты и начальный набор функций.			  :Technical:
    Для игры используются стандартные d10, d4, d6, d12, d20 дайсы.
-#+begin_src python :tangle functions.py
-  # -*- coding: utf-8 -*-
-  import random
-
-  def d10():
-   random.seed(100)
-   return random.randint(1, 10)
-
-  def d4():
-   random.seed(100)
-   return random.randint(1, 4)
-
-  def d6():
-   random.seed(100)
-   return random.randint(1, 6)
-
-  def d12():
-   random.seed(100)
-   return random.randint(1, 12)
-
-  def d20():
-   random.seed(100)
-   return random.randint(1, 20)
-#+end_src
    Все настройки хранятся в файле "game.conf", а сами объекты должны
    создаваться из файлов с описаниями этих самых объектов. Это позволит
    без больших проблем расширять игру, наполнять ее контентом, и, при
@@ -155,27 +131,6 @@
     * Первая помощь
   Так же, естественно, каждый персонаж имеет имя, пол, вид (человек,
   собака, дерево), уровень (номинальное количество ХР) и описание. 
-** TODO Разработать (утащить) формулы для учета экспы и уровней.
-#+begin_src python :tangle game-classes.py
-  # -*- coding: utf-8 -*-
-
-  class Character:
-    """Basic class for creating PC and NPC"""
-    def __init__(self):
-      """initialisation of character"""
-      self.stats = {}
-      self.perks = {}
-      self.inventory = {} #maybe, i'm not sure
-      self.description = ''
-    def creation(self):
-      """function for generating character"""
-      for stat in self.stats.keys():
-        self.stats[stat] = d10()
-    def death(self):
-      """death"""
-       itemsDrop(self.inventory)
-       self.description+=log
-#+end_src
 ** Создание персонажа
    Персонаж создается броском d10
 #+begin_src python :tangle player.py
@@ -266,19 +221,41 @@
 	  language = 'english'
 	  
     #+end_src
-** TODO Утилиты							  :Technical:
+** IN_PROGRESS Утилиты						  :Technical:
    - [ ] Загрузчик моделей
    - [ ] Загрузчик текстур
    - [ ] Конфиг ридер
-** TODO Реализация(прототип) "Мастера"
+** TODO Реализация(прототип) "Мастера"				  :Technical:
    Мастера должен быть тестируем отдельно от всего на свете. Логичен,
    но с сюрпризами. Материалы по работе и логике мастера я буду
    размещать здесь же. (возможны дубли)
+   Заняться этим после интерпретатора команд
 
-** IN_PROGRESS Интерпретатор команд
+** IN_PROGRESS Интерпретатор команд				  :Technical:
    Как говорилось в пункте про управление, все в игре происходит
    посредством команд, клавиатура, иконки, геймпад -- всего лишь
    интерфейс для них. Поехали!
+** TODO Разработать (утащить) формулы для учета экспы и уровней.
+#+begin_src python :tangle game-classes.py
+  # -*- coding: utf-8 -*-
+
+  class Character:
+    """Basic class for creating PC and NPC"""
+    def __init__(self):
+      """initialisation of character"""
+      self.stats = {}
+      self.perks = {}
+      self.inventory = {} #maybe, i'm not sure
+      self.description = ''
+    def creation(self):
+      """function for generating character"""
+      for stat in self.stats.keys():
+        self.stats[stat] = d10()
+    def death(self):
+      """death"""
+       itemsDrop(self.inventory)
+       self.description+=log
+#+end_src
 
 * Footnotes
 
