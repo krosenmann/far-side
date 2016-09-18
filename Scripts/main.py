@@ -5,9 +5,9 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import sys
-import configparser
+import ConfigParser
 
-config = configparser.RawConfigParser()
+config = ConfigParser.RawConfigParser()
 config.read("game.cfg")
 
 window = int(config.get("VIDEO", "Window"))
