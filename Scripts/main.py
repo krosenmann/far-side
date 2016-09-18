@@ -61,14 +61,8 @@ def resize_window(width, height):
     glMatrixMode(GL_MODELVIEW)
 
 
-def draw_scene():
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    glLoadIdentity()
-    glutSwapBuffers()
-
-
 def exit_game(key):
-    if key == GLUT_KEY_UP:  # Press Delete to Exit
+    if key == GLUT_KEY_UP:  # Press W to Exit
         glutDestroyWindow(window)
         sys.exit()
 
@@ -77,13 +71,12 @@ def draw_scene():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
 
-    #Раскомментить для проверки что хоть что-то рисуется
+    '''# Раскомментить для проверки что хоть что-то рисуется
     glBegin(GL_POLYGON)
     glVertex3f(0.0, 1.0, 0.0)
     glVertex3f(1.0, -1.0, 0.0)
     glVertex3f(-1.0, -1.0, 0.0)
-    glEnd()
-
+    glEnd()'''
 
     glutSwapBuffers()
     glutPostRedisplay()
@@ -101,7 +94,7 @@ def main():
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
     glutInitWindowSize(int(config.get("VIDEO", "Width")), int(config.get("VIDEO", "Height")))
     glutInitWindowPosition(int(config.get("VIDEO", "WindowPositionX")), int(config.get("VIDEO", "WindowPositionY")))
-    window = glutCreateWindow(b"FAR SIDE")
+    window = glutCreateWindow(b"WELCOME TO FAR SIDE")
     glutDisplayFunc(draw_scene)
     # if bool(config.get("VIDEO", "WindowedMode")): - пока не сделал парсинг значения из конфига - фуллскрин или нет.
     #    glutFullScreen()
